@@ -4,58 +4,86 @@ public class Queen {
         int[][] chess = {{-1, 0, -1, -1, -1, -1, 0, 0}, {-1, 0, 0, 0, -1, 0, -1, 0}, {-1, 0, -1, 0, 1, -1, 0, -1}, {0, -1, 0, -1, 0, 1, 0, 1}, {0, 1, 0, 1, 0, 0, 0, 1}, {1, 1, 1, 0, 1, 0, 0, 0}, {0, 0, 1, 1, 1, 0, 0, 1}, {0, 0, 0, 0, 1, 1, 0, 0}};
 
         // przypisanie INDEKSÓW pozycji Hetmana
-        int x = 6;
-        int y = 4;
+        int x = 2;
+        int y = 6;
 
         // sprawdzenie POZYCJI przeciwnika w zasięgu Hetmana i jej wyświetlenie
-        int rowIndex = 0;
-        int colIndex = 0;
+        int plusRowIndex = x;
+        int plusColIndex = y;
 
         do {
-            if (chess[x][colIndex] == -1) {
-                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (x + 1) + " " + (colIndex + 1));
+            if (chess[x][plusColIndex] == -1) {
+                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (x + 1) + " " + (plusColIndex + 1));
             }
-            colIndex++;
-        } while (colIndex < chess.length);
+            plusColIndex++;
+        } while (plusColIndex < chess.length && chess[x][plusColIndex - 1] != -1);
 
         do {
-            if (chess[rowIndex][y] == -1) {
-                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (rowIndex + 1) + " " + (y + 1));
+            if (chess[plusRowIndex][y] == -1) {
+                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (plusRowIndex + 1) + " " + (y + 1));
             }
-            rowIndex++;
-        } while (rowIndex < chess.length);
+            plusRowIndex++;
+        } while (plusRowIndex < chess.length && chess[plusRowIndex - 1][y] != -1);
 
-        int firstNewRowIndex = x;
-        int firstNewColIndex = y;
-
-        do {
-            firstNewRowIndex--;
-            firstNewColIndex--;
-        } while (firstNewRowIndex >0 && firstNewColIndex >0);
+        int minusRowIndex = x;
+        int minusColIndex = y;
 
         do {
-            if (chess[firstNewRowIndex][firstNewColIndex] == -1) {
-                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (firstNewRowIndex + 1) + " " + (firstNewColIndex + 1));
+            if (chess[x][minusColIndex] == -1) {
+                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (x + 1) + " " + (minusColIndex + 1));
             }
-            firstNewRowIndex++;
-            firstNewColIndex++;
-        } while (firstNewRowIndex < chess.length && firstNewColIndex < chess.length);
-
-        int secondNewRowIndex = x;
-        int secondNewColIndex = y;
+            minusColIndex--;
+        } while (minusColIndex >= 0 && chess[x][minusColIndex + 1] != -1);
 
         do {
-            secondNewRowIndex++;
-            secondNewColIndex--;
-        } while (secondNewRowIndex < (chess.length-1) && secondNewColIndex  >0);
-
-        do {
-            if (chess[secondNewRowIndex][secondNewColIndex] == -1) {
-                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (secondNewRowIndex + 1) + " " + (secondNewColIndex + 1));
+            if (chess[minusRowIndex][y] == -1) {
+                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (minusRowIndex + 1) + " " + (y + 1));
             }
-            secondNewRowIndex--;
-            secondNewColIndex++;
-        } while (secondNewRowIndex >=0 && secondNewColIndex < chess.length);
+            minusRowIndex--;
+        } while (minusRowIndex >= 0 && chess[minusRowIndex + 1][y] != -1);
 
+        int firstPlusRowIndex = x;
+        int firstPlusColIndex = y;
+
+        do {
+            if (chess[firstPlusRowIndex][firstPlusColIndex] == -1) {
+                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (firstPlusRowIndex + 1) + " " + (firstPlusColIndex + 1));
+            }
+            firstPlusRowIndex++;
+            firstPlusColIndex++;
+        } while (firstPlusRowIndex < chess.length && firstPlusColIndex < chess.length && chess[firstPlusRowIndex - 1][firstPlusColIndex - 1] != -1);
+
+        int firstMinusRowIndex = x;
+        int firstMinusColIndex = y;
+
+        do {
+            if (chess[firstMinusRowIndex][firstMinusColIndex] == -1) {
+                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (firstMinusRowIndex + 1) + " " + (firstMinusColIndex + 1));
+            }
+            firstMinusRowIndex--;
+            firstMinusColIndex--;
+        } while (firstMinusRowIndex >= 0 && firstMinusColIndex >= 0 && chess[firstMinusRowIndex + 1][firstMinusColIndex + 1] != -1);
+
+        int secondMinusRowIndex = x;
+        int secondPlusColIndex = y;
+
+        do {
+            if (chess[secondMinusRowIndex][secondPlusColIndex] == -1) {
+                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (secondMinusRowIndex + 1) + " " + (secondPlusColIndex + 1));
+            }
+            secondMinusRowIndex--;
+            secondPlusColIndex++;
+        } while (secondMinusRowIndex >= 0 && secondPlusColIndex < chess.length && chess[secondMinusRowIndex + 1][secondPlusColIndex - 1] != -1);
+
+        int secondPlusRowIndex = x;
+        int secondMinusColIndex = y;
+
+        do {
+            if (chess[secondPlusRowIndex][secondMinusColIndex] == -1) {
+                System.out.println("Przeciwnik w zasięgu znajduje się na polu " + (secondPlusRowIndex + 1) + " " + (secondMinusColIndex + 1));
+            }
+            secondPlusRowIndex++;
+            secondMinusColIndex--;
+        } while (secondMinusColIndex >= 0 && secondPlusRowIndex < chess.length && chess[secondPlusRowIndex - 1][secondMinusColIndex + 1] != -1);
     }
 }
